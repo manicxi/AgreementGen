@@ -1071,14 +1071,9 @@
       <div class="field-group">
         <div class="field"><label for="cr-address">Registered office address</label><textarea id="cr-address" placeholder="Paste registered address" oninput="crS1Update()"></textarea></div>
       </div>
-      <div class="form-section-title">Existing agreement</div>
-      <div class="field-group">
-        <div class="field" style="max-width:400px;">
-          <label for="cr-contractName">Contract name being terminated <span style="font-weight:400;color:#888;">(optional)</span></label>
-          <input type="text" id="cr-contractName" placeholder="e.g. CAU0100 — leave blank to terminate all agreements" oninput="crS1Update()" />
-          <span class="hint">If blank, all existing agreements between the parties will be terminated</span>
-        </div>
-      </div>
+      <div class="form-section-title">Existing agreement(s) <span style="font-weight:400;color:#aaa;font-size:10px;text-transform:none;letter-spacing:0;">— leave empty to terminate all agreements</span></div>
+      <div id="cr-contracts-list" style="margin-bottom:4px;"></div>
+      <button type="button" class="btn-add" onclick="crAddContract()" style="margin-bottom:1.5rem;">+ Add agreement</button>
     </div>
     <div class="cta-bar">
       <div class="steps-map"><div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div></div>
@@ -1253,7 +1248,7 @@
         </div>
       </div>
       <div class="form-section-title">All other terms</div>
-      <div class="static-notice">Consulting Services Fees, Expenses, and Hardware use <strong>standard wording</strong> and will be included automatically. Annual Uplift (if included) appears under Additional Terms (Other).</div>
+      <div class="static-notice">Consulting Services Fees, Expenses, and Hardware use <strong>standard wording</strong> and will be included automatically. Annual Uplift (if included) appears under Additional Terms (Commercial).</div>
     </div>
     <div class="cta-bar">
       <div class="btn-row"><button class="btn-back" onclick="crGoTo(4)">← Back</button>
@@ -1301,7 +1296,7 @@
         <div class="section-header"><span class="section-title">Customer</span><button class="btn-edit" onclick="crGoTo(1)">Edit</button></div>
         <div class="review-card">
           <div class="review-row"><span class="review-key">Company</span><span class="review-val" id="cr-rv-company">—</span></div>
-          <div class="review-row"><span class="review-key">Contract terminated</span><span class="review-val" id="cr-rv-contractname">All existing agreements</span></div>
+          <div id="cr-rv-contracts-section"><div class="review-row"><span class="review-key">Agreements terminated</span><span class="review-val muted">All existing agreements</span></div></div>
         </div>
       </div>
       <div class="review-section">
@@ -25379,7 +25374,7 @@ function launchCR() {
 // ─── CONTRACT RESTATEMENT STATE ──────────────────────────────────────────────
 const crState = {
   companyName: '', companyNumber: '', address: '',
-  contractName: '',
+  contracts: [],
   accessName: '', accessPhone: '',
   custName: '', custPhone: '',
   productName: 'Coins',
@@ -25391,7 +25386,7 @@ const crState = {
   upliftIncluded: true, upliftPct: '5',
   includeSoW: false, sowServices: [],
 };
-let crNamedId = 0, crFeeId = 0, crSowId = 0;
+let crNamedId = 0, crFeeId = 0, crSowId = 0, crContractId = 0;
 
 const crStepMeta = [
   null,
@@ -25427,14 +25422,50 @@ function crS1Update() {
   const name = document.getElementById('cr-companyName').value.trim();
   const num  = document.getElementById('cr-companyNumber').value.trim();
   const addr = document.getElementById('cr-address').value.trim().replace(/\n/g,', ');
-  const cont = document.getElementById('cr-contractName').value.trim();
-  crState.companyName=name; crState.companyNumber=num; crState.address=addr; crState.contractName=cont;
+  crState.companyName=name; crState.companyNumber=num; crState.address=addr;
   const tName=document.getElementById('cr-t-name'), tNum=document.getElementById('cr-t-num');
   const tNumW=document.getElementById('cr-t-numwrap'), tAddr=document.getElementById('cr-t-addr');
   tName.textContent=name?name.toUpperCase():'[COMPANY NAME]'; tName.className=name?'token filled':'token';
   tNumW.style.display=num?'':'none'; tNum.textContent=num; tNum.className='token filled';
   tAddr.textContent=addr||'[address]'; tAddr.className=addr?'token filled':'token';
   document.getElementById('cr-s1next').disabled=!(name&&addr);
+}
+
+// ─── CR CONTRACT LIST ────────────────────────────────────────────────────────
+function crRenderContracts() {
+  const list = document.getElementById('cr-contracts-list');
+  if (!list) return;
+  const s = crState;
+  if (s.contracts.length === 0) { list.innerHTML = ''; return; }
+  const esc = str => (str||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  list.innerHTML = s.contracts.map((c, i) =>
+    '<div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:start;margin-bottom:10px;">' +
+      '<div class="field">' +
+        (i === 0 ? '<label>Contract name / number</label>' : '') +
+        '<input type="text" placeholder="e.g. CUK0109-01" value="' + esc(c.name) + '" oninput="crContractInput(' + c.id + ',\'name\',this.value)" />' +
+      '</div>' +
+      '<div class="field">' +
+        (i === 0 ? '<label>Date of agreement</label>' : '') +
+        '<input type="text" placeholder="e.g. 1 April 2022" value="' + esc(c.date) + '" oninput="crContractInput(' + c.id + ',\'date\',this.value)" />' +
+        (i === 0 ? '<span class="hint">Date the original agreement was signed</span>' : '') +
+      '</div>' +
+      '<button type="button" class="btn-remove" onclick="crRemoveContract(' + c.id + ')" style="margin-top:' + (i === 0 ? '20px' : '4px') + '">&#x2715;</button>' +
+    '</div>'
+  ).join('');
+}
+function crAddContract() {
+  crState.contracts.push({id: crContractId++, name: '', date: ''});
+  crRenderContracts();
+  crUpdateDocPreview();
+}
+function crRemoveContract(id) {
+  crState.contracts = crState.contracts.filter(c => c.id !== id);
+  crRenderContracts();
+  crUpdateDocPreview();
+}
+function crContractInput(id, field, val) {
+  const c = crState.contracts.find(c => c.id === id);
+  if (c) { c[field] = val; crUpdateDocPreview(); }
 }
 
 // ─── CR STEP 2 ───────────────────────────────────────────────────────────────
@@ -25616,7 +25647,15 @@ function crRenderSowPreview(pfx) {
 function crBuildReview() {
   const s=crState;
   document.getElementById('cr-rv-company').textContent=s.companyName.toUpperCase()+(s.companyNumber?' ('+s.companyNumber+')':'');
-  document.getElementById('cr-rv-contractname').textContent=s.contractName||'All existing agreements';
+  const rvConSec = document.getElementById('cr-rv-contracts-section');
+  if (!s.contracts || s.contracts.length === 0) {
+    rvConSec.innerHTML = '<div class="review-row"><span class="review-key">Agreements terminated</span><span class="review-val muted">All existing agreements</span></div>';
+  } else {
+    rvConSec.innerHTML = s.contracts.map((c, i) =>
+      '<div class="review-row"><span class="review-key">' + (i === 0 ? 'Agreements terminated' : '') + '</span>' +
+      '<span class="review-val">' + escHtml(c.name || '—') + ' &mdash; ' + escHtml(c.date || 'no date') + '</span></div>'
+    ).join('');
+  }
   document.getElementById('cr-rv-access').textContent=s.accessName+' — '+s.accessPhone;
   document.getElementById('cr-rv-cust').textContent=s.custName+' — '+s.custPhone;
   document.getElementById('cr-rv-saas').textContent=s.saasFee;
@@ -25674,12 +25713,12 @@ function crBuildDocPreview() {
     tr(td('Signature')+td('Signature'))+tr(td('Print name')+td('Print name'))+tr(td('Title')+td('Title'))+tr(td('Effective Date')+td('Effective Date'))
   );
 
-  // Existing agreements table — centred header, no RESTATEMENT row (moved to modules)
-  let eaRows = drh('Existing Agreement(s)',1)+
-    tr(td('<strong>The Existing Agreements are listed below. If no agreements are listed below, the Parties agree that any and all agreements between the Parties will terminate upon execution of this Contract Restatement.</strong>'))+
-    tr(td('<strong>Access Product \u2013 '+h(s.productName)+'</strong>'))+
-    (s.contractName?tr(td('<strong>Contract Name \u2013 '+h(s.contractName)+'</strong>')):'') +
-    tr(td('The Existing Agreements are terminated and replaced with this Contract Restatement as of the Start Date of this Restatement. Any Annual Fees under the Existing Agreements that have been paid in advance shall be credited from the Start Date. The credit value <u>shall not</u> be refunded to You...'));
+  // Existing agreements table — two-column layout (Access Products | Date of Agreements)
+  let eaRows = drh('Existing Agreement(s)',2)+
+    tr(`<td colspan="2" style="border:1px solid #aaa;padding:4px 7px;"><strong>The Existing Agreements are listed below. If no agreements are listed below, the Parties agree that <u>any and all</u> agreements between the Parties will terminate upon execution of this Contract Restatement.</strong></td>`)+
+    tr(td('<strong>Access Products</strong>')+td('<strong>Date of Agreements</strong>'))+
+    (s.contracts&&s.contracts.length>0 ? s.contracts.map(c=>tr(td(c.name?'<strong>'+h(c.name)+'</strong>':'<span style="color:#bbb;font-style:italic;">[contract name]</span>')+td(c.date?'<strong>'+h(c.date)+'</strong>':'<span style="color:#bbb;font-style:italic;">[date]</span>'))).join('') : tr(td('<span style="color:#bbb;font-style:italic;">[contract name/number]</span>')+td('<span style="color:#bbb;font-style:italic;">[date of agreement]</span>')))+
+    tr(`<td colspan="2" style="border:1px solid #aaa;padding:4px 7px;">The Existing Agreements are terminated and replaced with this Contract Restatement as of the Start Date of this Restatement. Any Annual Fees under the Existing Agreements that have been paid in advance shall be credited from the Start Date. The credit value <u>shall not</u> be refunded to You. The credit value shall be retained by Us and used to offset against the pro rata invoice. For the avoidance of doubt, any charges due under the Existing Agreements shall be replaced in their entirety with the charges contained within this Contract Restatement and be subject to the Commercial Terms in this Restatement.</td>`);
   const existingTable=tbl(eaRows);
 
   // Modules table — RESTATEMENT header row first
@@ -25841,28 +25880,34 @@ function crBuildDocx(d) {
       ],
     });
 
-    // ── Table 2: Existing Agreements (9933, 5 rows, no RESTATEMENT row) ──
-    const ETW=9933;
-    const productLabel='Access Product \u2013 '+d.productName;
-    const contractLabel='Contract Name \u2013 '+d.contractName;
+    // ── Table 2: Existing Agreements (9933, two-column: Access Products | Date of Agreements) ──
+    const ETW=9933, EA_C1=4967, EA_C2=4966;
     const eaRows=[
-      new TableRow({children:[dkh('Existing Agreement(s)',ETW,1)]}),
-      new TableRow({children:[new TableCell({children:[p([tb('The Existing Agreements are listed below. If no agreements are listed below, the Parties agree that any and all agreements between the Parties will terminate upon execution of this Contract Restatement.')])],width:{size:ETW,type:WidthType.DXA},margins:cm,borders:borders()})]}),
-      new TableRow({children:[new TableCell({children:[p([tb(productLabel)])],width:{size:ETW,type:WidthType.DXA},margins:cm,borders:borders()})]}),
-    ];
-    if (d.contractName) {
-      eaRows.push(new TableRow({children:[new TableCell({children:[p([tb(contractLabel)])],width:{size:ETW,type:WidthType.DXA},margins:cm,borders:borders()})]}));
-    }
-    eaRows.push(
+      new TableRow({children:[dkh('Existing Agreement(s)',ETW,2)]}),
+      new TableRow({children:[new TableCell({
+        children:[p([tb('The Existing Agreements are listed below. If no agreements are listed below, the Parties agree that '),new TextRun({text:'any and all',bold:true,underline:{}}),tb(' agreements between the Parties will terminate upon execution of this Contract Restatement.')])],
+        columnSpan:2,width:{size:ETW,type:WidthType.DXA},margins:cm,borders:borders()
+      })]}),
+      new TableRow({children:[
+        new TableCell({children:[p([tb('Access Products')])],width:{size:EA_C1,type:WidthType.DXA},margins:cm,borders:borders()}),
+        new TableCell({children:[p([tb('Date of Agreements')])],width:{size:EA_C2,type:WidthType.DXA},margins:cm,borders:borders()}),
+      ]}),
+      ...(d.contracts&&d.contracts.length>0 ? d.contracts.map(c=>new TableRow({children:[
+        new TableCell({children:[p([tb(c.name||'')])],width:{size:EA_C1,type:WidthType.DXA},margins:cm,borders:borders()}),
+        new TableCell({children:[p([t(c.date||'')])],width:{size:EA_C2,type:WidthType.DXA},margins:cm,borders:borders()}),
+      ]})) : [new TableRow({children:[
+        new TableCell({children:[ep()],width:{size:EA_C1,type:WidthType.DXA},margins:cm,borders:borders()}),
+        new TableCell({children:[ep()],width:{size:EA_C2,type:WidthType.DXA},margins:cm,borders:borders()}),
+      ]})]),
       new TableRow({children:[new TableCell({
         children:[
           p([t('The Existing Agreements are terminated and replaced with this Contract Restatement as of the Start Date of this Restatement. Any Annual Fees under the Existing Agreements that have been paid in advance shall be credited from the Start Date. The credit value ')]),
           new Paragraph({children:[tb('shall not',{underline:{}}),t(' be refunded to You. The credit value shall be retained by Us and used to offset against the pro rata invoice. For the avoidance of doubt, any charges due under the Existing Agreements shall be replaced in their entirety with the charges contained within this Contract Restatement and be subject to the Commercial Terms in this Restatement.')],spacing:{after:80}}),
         ],
-        width:{size:ETW,type:WidthType.DXA},margins:cm,borders:borders(),
+        columnSpan:2,width:{size:ETW,type:WidthType.DXA},margins:cm,borders:borders(),
       })]})
-    );
-    const existingAgreementsTable=new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:[ETW],rows:eaRows});
+    ];
+    const existingAgreementsTable=new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:[EA_C1,EA_C2],rows:eaRows});
 
     // ── Table 3: Modules (2689/5558/1384 = 9631) ──
     // Row 0: "RESTATEMENT" underlined - full width C00000
@@ -25947,7 +25992,7 @@ function crBuildDocx(d) {
       width:{size:AT_TW,type:WidthType.DXA},columnWidths:[AT1,AT2],
       rows:[
         new TableRow({children:[new TableCell({
-          children:[new Paragraph({children:[tb('Additional Terms (Other) pursuant to clause 1.5 of Schedule 1 of the Terms and Conditions:')],alignment:AlignmentType.CENTER,spacing:{after:80}})],
+          children:[new Paragraph({children:[tb('Additional Terms (Commercial) pursuant to clause 1.2.2 of the Core Terms')],alignment:AlignmentType.CENTER,spacing:{after:80}})],
           columnSpan:2,margins:cm,borders:borders('AAAAAA'),shading:{fill:DRED,type:ShadingType.CLEAR},verticalAlign:VerticalAlign.CENTER,
         })]}),
         ...(d.upliftIncluded?[new TableRow({children:[dc('Annual Uplift',AT1,{bold:true}),dc(upliftText,AT2)]})]:[]),

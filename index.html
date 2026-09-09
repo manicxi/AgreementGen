@@ -1360,6 +1360,266 @@
 
 </div><!-- end .app-cr -->
 
+<div class="app" id="app-fonn" style="display:none; margin-top:24px; font-family:'Segoe UI',Arial,sans-serif;">
+  <div style="max-width:680px;margin:0 auto;padding:0 16px 40px;">
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0 16px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="logo-circle" style="width:32px;height:32px;background:#e5173f;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 16 16" fill="none" style="width:18px;height:18px;"><path d="M8 2a6 6 0 1 0 4.243 10.243" stroke="white" stroke-width="2" stroke-linecap="round"/><polyline points="10,8 13,11 16,8" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span style="font-size:15px;font-weight:700;color:#111;">Fonn Agreement</span>
+      </div>
+      <button onclick="fonnGoHome()" style="background:none;border:none;color:#888;font-size:13px;cursor:pointer;padding:4px 8px;">← Home</button>
+    </div>
+    <!-- Progress -->
+    <div style="background:#f0f0f0;border-radius:4px;height:4px;margin-bottom:8px;">
+      <div id="fonnProgressFill" style="background:#e5173f;height:4px;border-radius:4px;width:16.6%;transition:width 0.3s;"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+      <span id="fonnStepBadge" style="background:#e5173f;color:#fff;font-size:11px;font-weight:700;border-radius:10px;padding:2px 8px;">Step 1 of 6</span>
+      <span id="fonnStepLabel" style="font-size:13px;color:#555;"><strong>Company Details</strong></span>
+    </div>
+
+    <!-- Step 1: Company Details -->
+    <div class="step active" id="fonn-step-1">
+      <div style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:24px 28px;margin-bottom:16px;">
+        <h3 style="margin:0 0 18px;font-size:16px;color:#111;">Customer Company Details</h3>
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Company Name <span style="color:#e5173f;">*</span></label>
+          <input id="fonn-companyName" type="text" oninput="fonnS1Update()" placeholder="e.g. CG Fry &amp; Son Ltd" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Company Registration Number</label>
+          <input id="fonn-companyNumber" type="text" oninput="fonnS1Update()" placeholder="e.g. 01234567" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Registered Address</label>
+          <textarea id="fonn-address" oninput="fonnS1Update()" rows="3" placeholder="e.g. 1 Example Street, Bristol, BS1 1AA" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;resize:vertical;"></textarea>
+        </div>
+      </div>
+      <!-- Live preview -->
+      <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:10px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:#444;line-height:1.6;">
+        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.05em;margin-bottom:8px;">PREVIEW</div>
+        <strong id="fonn-t-name" style="color:#111;">[COMPANY NAME]</strong> (Registered in England and Wales<span id="fonn-t-numwrap" style="display:none;"> — Company Number: <span id="fonn-t-num"></span></span>) of <span id="fonn-t-addr" style="color:#555;">[address]</span>
+      </div>
+      <div style="text-align:right;">
+        <button id="fonn-s1next" onclick="fonnGoTo(2)" disabled style="background:#e5173f;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:14px;font-weight:600;cursor:pointer;opacity:0.4;" onmouseover="if(!this.disabled)this.style.opacity='0.85'" onmouseout="if(!this.disabled)this.style.opacity='1'">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Contacts -->
+    <div class="step" id="fonn-step-2">
+      <div style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:24px 28px;margin-bottom:16px;">
+        <h3 style="margin:0 0 18px;font-size:16px;color:#111;">Contacts</h3>
+        <div style="font-size:12px;font-weight:700;color:#e5173f;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">Access Group</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Your Name <span style="color:#e5173f;">*</span></label>
+            <input id="fonn-accessName" type="text" oninput="fonnS2Update()" value="Edward Isaac" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Your Email</label>
+            <input id="fonn-accessEmail" type="email" oninput="fonnS2Update()" value="Edward.isaac@theaccessgroup.com" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+          </div>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#e5173f;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">Customer</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Contact Name <span style="color:#e5173f;">*</span></label>
+            <input id="fonn-custName" type="text" oninput="fonnS2Update()" placeholder="Customer contact name" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Contact Email</label>
+            <input id="fonn-custEmail" type="email" oninput="fonnS2Update()" placeholder="customer@example.com" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+          </div>
+        </div>
+      </div>
+      <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:10px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:#444;line-height:1.7;">
+        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.05em;margin-bottom:8px;">PREVIEW</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:12px;">
+          <span style="font-weight:600;color:#e5173f;">Company</span><span style="font-weight:600;color:#e5173f;">Contact Name</span><span style="font-weight:600;color:#e5173f;">Email</span>
+          <span>Access Group</span><span id="fonn-pv-aname">Edward Isaac</span><span id="fonn-pv-aemail">Edward.isaac@theaccessgroup.com</span>
+          <span id="fonn-pv-coname">[company name]</span><span id="fonn-pv-cname">[customer name]</span><span id="fonn-pv-cemail">[customer email]</span>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;">
+        <button onclick="fonnGoTo(1)" style="background:#f0f0f0;color:#555;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer;">← Back</button>
+        <button id="fonn-s2next" onclick="fonnGoTo(3)" disabled style="background:#e5173f;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:14px;font-weight:600;cursor:pointer;opacity:0.4;">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Subscription & Modules -->
+    <div class="step" id="fonn-step-3">
+      <div style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:24px 28px;margin-bottom:16px;">
+        <h3 style="margin:0 0 18px;font-size:16px;color:#111;">Subscription Tier &amp; Modules</h3>
+        <div style="font-size:12px;font-weight:700;color:#e5173f;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Subscription Tier</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border:1px solid #e0e0e0;border-radius:8px;">
+            <input type="radio" name="fonn-tier" value="core" checked onchange="fonnS3Update()" style="margin-top:2px;accent-color:#e5173f;">
+            <div><div style="font-weight:600;font-size:13px;">Core</div><div style="font-size:12px;color:#777;margin-top:2px;">Documents/Drawings, Issues, Tasks, Report Hub, Scope of Works + 3 x selected Modules</div></div>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border:1px solid #e0e0e0;border-radius:8px;">
+            <input type="radio" name="fonn-tier" value="pro" onchange="fonnS3Update()" style="margin-top:2px;accent-color:#e5173f;">
+            <div><div style="font-weight:600;font-size:13px;">Pro</div><div style="font-size:12px;color:#777;margin-top:2px;">+6 x selected Modules</div></div>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border:1px solid #e0e0e0;border-radius:8px;">
+            <input type="radio" name="fonn-tier" value="proplus" onchange="fonnS3Update()" style="margin-top:2px;accent-color:#e5173f;">
+            <div><div style="font-weight:600;font-size:13px;">Pro+</div><div style="font-size:12px;color:#777;margin-top:2px;">+10 x selected Modules</div></div>
+          </label>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#e5173f;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Modules</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:20px;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="RFIs" onchange="fonnS3Update()" style="accent-color:#e5173f;">RFIs</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Variations" onchange="fonnS3Update()" style="accent-color:#e5173f;">Variations</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Submittals" onchange="fonnS3Update()" style="accent-color:#e5173f;">Submittals</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Image Gallery" onchange="fonnS3Update()" style="accent-color:#e5173f;">Image Gallery</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Tender Packages" onchange="fonnS3Update()" style="accent-color:#e5173f;">Tender Packages</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Metadata Extract" onchange="fonnS3Update()" style="accent-color:#e5173f;">Metadata Extract</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Check-ins" onchange="fonnS3Update()" style="accent-color:#e5173f;">Check-ins</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Timeline" onchange="fonnS3Update()" style="accent-color:#e5173f;">Timeline</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Time Sheets" onchange="fonnS3Update()" style="accent-color:#e5173f;">Time Sheets</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="Digital Forms" onchange="fonnS3Update()" style="accent-color:#e5173f;">Digital Forms</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;"><input type="checkbox" class="fonn-module-cb" value="BIM Viewer" onchange="fonnS3Update()" style="accent-color:#e5173f;">BIM Viewer</label>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#e5173f;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em;">Onboarding Package</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border:1px solid #e0e0e0;border-radius:8px;">
+            <input type="radio" name="fonn-onboarding" value="self-serve" onchange="fonnS3Update()" style="margin-top:2px;accent-color:#e5173f;">
+            <div><div style="font-weight:600;font-size:13px;">Self Serve</div><div style="font-size:12px;color:#777;margin-top:2px;">Training videos &amp; articles, 7am–7pm Mon–Fri live chat &amp; phone support, 1x 60-min teams set up session</div></div>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border:1px solid #e0e0e0;border-radius:8px;">
+            <input type="radio" name="fonn-onboarding" value="basic" onchange="fonnS3Update()" style="margin-top:2px;accent-color:#e5173f;">
+            <div><div style="font-weight:600;font-size:13px;">Basic</div><div style="font-size:12px;color:#777;margin-top:2px;">Training videos &amp; articles, 7am–7pm Mon–Fri live chat &amp; phone support, 1x 60-min teams set up session, 2x 90-min online team training</div></div>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 14px;border:1px solid #e0e0e0;border-radius:8px;">
+            <input type="radio" name="fonn-onboarding" value="premium" checked onchange="fonnS3Update()" style="margin-top:2px;accent-color:#e5173f;">
+            <div><div style="font-weight:600;font-size:13px;">Premium</div><div style="font-size:12px;color:#777;margin-top:2px;">Training videos &amp; articles, 24/7 live chat &amp; phone support, folder structure &amp; Scope of Works setup, dedicated support contact, 1x 60-min admin setup session, 3x 90-min team training, 1-day on-site training (UK mainland only), one-time setup fee (£1,500.00)</div></div>
+          </label>
+        </div>
+      </div>
+      <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:10px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:#444;line-height:1.7;" id="fonn-pv-subscription">
+        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.05em;margin-bottom:6px;">PREVIEW</div>
+        Tier: Core &bull; Onboarding: Premium Package
+      </div>
+      <div style="display:flex;justify-content:space-between;">
+        <button onclick="fonnGoTo(2)" style="background:#f0f0f0;color:#555;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer;">← Back</button>
+        <button onclick="fonnGoTo(4)" style="background:#e5173f;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:14px;font-weight:600;cursor:pointer;">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Fees -->
+    <div class="step" id="fonn-step-4">
+      <div style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:24px 28px;margin-bottom:16px;">
+        <h3 style="margin:0 0 18px;font-size:16px;color:#111;">Fees</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Implementation Fee (£)</label>
+            <input id="fonn-implFee" type="text" oninput="fonnS4Update()" placeholder="e.g. 2,500" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Annual Subscription Fee (£) <span style="color:#e5173f;">*</span></label>
+            <input id="fonn-annualSubFee" type="text" oninput="fonnS4Update()" placeholder="e.g. 12,000" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Support Fees</label>
+            <input id="fonn-supportFees" type="text" oninput="fonnS4Update()" value="Included" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Customer Success Plan</label>
+            <select id="fonn-csplan" onchange="fonnS4Update()" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;background:#fff;">
+              <option value="Standard">Standard</option>
+              <option value="Premium">Premium</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:10px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:#444;line-height:1.7;">
+        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.05em;margin-bottom:8px;">PREVIEW</div>
+        <div>Implementation: £<span id="fonn-pv-impl">[fee]</span></div>
+        <div>Annual Subscription: £<span id="fonn-pv-ann">[fee]</span></div>
+        <div>Support: <span id="fonn-pv-sup">Included</span></div>
+        <div>CS Plan: <span id="fonn-pv-cs">Standard</span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;">
+        <button onclick="fonnGoTo(3)" style="background:#f0f0f0;color:#555;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer;">← Back</button>
+        <button id="fonn-s4next" onclick="fonnGoTo(5)" disabled style="background:#e5173f;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:14px;font-weight:600;cursor:pointer;opacity:0.4;">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Commercial Terms -->
+    <div class="step" id="fonn-step-5">
+      <div style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:24px 28px;margin-bottom:16px;">
+        <h3 style="margin:0 0 18px;font-size:16px;color:#111;">Commercial Terms</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Start Date <span style="color:#e5173f;">*</span></label>
+            <input id="fonn-startDate" type="date" oninput="fonnS5Update()" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;">
+            <label style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:#555;cursor:pointer;">
+              <input type="checkbox" id="fonn-effectiveDate" onchange="fonnToggleEffectiveDate()" style="accent-color:#e5173f;">
+              Use Effective Date instead
+            </label>
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;">Initial Term</label>
+            <select id="fonn-initialTerm" onchange="fonnS5Update()" style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px;font-family:inherit;background:#fff;">
+              <option value="12 months">12 months</option>
+              <option value="24 months">24 months</option>
+              <option value="36 months" selected>36 months</option>
+            </select>
+          </div>
+        </div>
+        <div style="background:#f0f7ff;border:1px solid #c8dff8;border-radius:8px;padding:12px 16px;font-size:13px;color:#2a5fa8;">
+          <strong>Further Term:</strong> 12 months (fixed — not editable)
+        </div>
+      </div>
+      <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:10px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:#444;line-height:1.7;">
+        <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.05em;margin-bottom:8px;">PREVIEW</div>
+        <div>Start Date: <span id="fonn-pv-start">[date]</span></div>
+        <div>Initial Term: <span id="fonn-pv-term">36 months</span></div>
+        <div>Further Term: 12 months</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;">
+        <button onclick="fonnGoTo(4)" style="background:#f0f0f0;color:#555;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer;">← Back</button>
+        <button id="fonn-s5next" onclick="fonnGoTo(6)" disabled style="background:#e5173f;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:14px;font-weight:600;cursor:pointer;opacity:0.4;">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Review & Generate -->
+    <div class="step" id="fonn-step-6">
+      <div style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:24px 28px;margin-bottom:16px;">
+        <h3 style="margin:0 0 18px;font-size:16px;color:#111;">Review</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;font-size:13px;">
+          <div style="background:#f9f9f9;border-radius:8px;padding:12px 14px;"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">COMPANY</div><div id="fonn-rv-company" style="color:#111;font-weight:600;"></div></div>
+          <div style="background:#f9f9f9;border-radius:8px;padding:12px 14px;"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">CUSTOMER CONTACT</div><div id="fonn-rv-cust" style="color:#111;"></div></div>
+          <div style="background:#f9f9f9;border-radius:8px;padding:12px 14px;"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">TIER</div><div id="fonn-rv-tier" style="color:#111;font-weight:600;"></div></div>
+          <div style="background:#f9f9f9;border-radius:8px;padding:12px 14px;"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">MODULES</div><div id="fonn-rv-modules" style="color:#111;font-size:12px;"></div></div>
+          <div style="background:#f9f9f9;border-radius:8px;padding:12px 14px;"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">ANNUAL SUBSCRIPTION</div><div id="fonn-rv-ann" style="color:#111;font-weight:600;"></div></div>
+          <div style="background:#f9f9f9;border-radius:8px;padding:12px 14px;"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">TERM</div><div id="fonn-rv-term" style="color:#111;"></div></div>
+        </div>
+        <!-- Document preview -->
+        <div style="font-size:12px;font-weight:700;color:#555;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Document Preview</div>
+        <div id="fonn-doc-preview" style="border:1px solid #e0e0e0;border-radius:8px;padding:20px;max-height:360px;overflow-y:auto;font-size:12px;line-height:1.6;color:#333;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;">
+        <button onclick="fonnGoTo(5)" style="background:#f0f0f0;color:#555;border:none;border-radius:8px;padding:11px 22px;font-size:14px;font-weight:600;cursor:pointer;">← Back</button>
+        <button id="fonn-generateBtn" onclick="fonnHandleGenerate()" style="background:#e5173f;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:14px;font-weight:600;cursor:pointer;">Generate Document ↓</button>
+        <span id="fonn-generatingMsg" style="display:none;align-items:center;gap:8px;color:#e5173f;font-size:14px;font-weight:600;">Generating…</span>
+      </div>
+    </div>
+
+    <!-- Done screen -->
+    <div class="step" id="fonn-step-done" style="text-align:center;padding:40px 0;">
+      <div style="font-size:48px;margin-bottom:16px;">✅</div>
+      <h2 style="font-size:20px;color:#111;margin:0 0 8px;">Document ready!</h2>
+      <p style="color:#666;font-size:14px;margin:0 0 24px;">Your Fonn Agreement has been generated and is downloading.</p>
+      <a id="fonn-downloadLink" style="display:none;"></a>
+      <button onclick="fonnGoHome()" style="background:#e5173f;color:#fff;border:none;border-radius:8px;padding:12px 28px;font-size:14px;font-weight:600;cursor:pointer;">← Back to Home</button>
+    </div>
+  </div>
+</div><!-- end #app-fonn -->
 
 <div id="home-screen" style="max-width:680px;margin:0 auto;padding:32px 16px;">
   <div style="text-align:center;margin-bottom:32px;">
@@ -1385,6 +1645,11 @@
     <div onclick="launchCR()" style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:24px 28px;cursor:pointer;transition:border-color 0.15s;font-family:'Segoe UI',Arial,sans-serif;" onmouseover="this.style.borderColor='#e5173f'" onmouseout="this.style.borderColor='#e0e0e0'">
       <div style="font-size:17px;font-weight:700;color:#111;margin-bottom:6px;">Contract Restatement</div>
       <div style="font-size:13px;color:#777;line-height:1.5;">Terminate existing agreements and replace with a new contract — includes restatement wording, existing agreement termination, and full commercial terms.</div>
+      <div style="margin-top:14px;font-size:13px;font-weight:600;color:#e5173f;">Start →</div>
+    </div>
+    <div onclick="launchFonn()" style="background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:24px 28px;cursor:pointer;transition:border-color 0.15s;font-family:'Segoe UI',Arial,sans-serif;" onmouseover="this.style.borderColor='#e5173f'" onmouseout="this.style.borderColor='#e0e0e0'">
+      <div style="font-size:17px;font-weight:700;color:#111;margin-bottom:6px;">Fonn Agreement</div>
+      <div style="font-size:13px;color:#777;line-height:1.5;">Create a new Fonn subscription agreement — subscription tier, modules, fees, commercial terms and signatures.</div>
       <div style="margin-top:14px;font-size:13px;font-weight:600;color:#e5173f;">Start →</div>
     </div>
   </div>
@@ -26860,6 +27125,407 @@ function rcBuildDocx(d) {
     alert('Error generating document: ' + e.message);
     document.getElementById('rc-generateBtn').style.display = 'block';
     document.getElementById('rc-generatingMsg').style.display = 'none';
+  }
+}
+
+
+// ─── FONN AGREEMENT BUILDER ──────────────────────────────────────────────────
+function launchFonn() {
+  document.getElementById('home-screen').style.display = 'none';
+  document.getElementById('app-fonn').style.display = 'block';
+}
+function fonnGoHome() {
+  document.getElementById('app-fonn').style.display = 'none';
+  document.getElementById('home-screen').style.display = 'block';
+}
+
+const fonnState = {
+  companyName: '', companyNumber: '', address: '',
+  accessName: 'Edward Isaac', accessEmail: 'Edward.isaac@theaccessgroup.com',
+  custName: '', custEmail: '',
+  subscriptionTier: 'core',
+  modules: [],
+  onboardingPackage: 'premium',
+  implFee: '', annualSubFee: '', supportFees: 'Included', csplan: 'Standard',
+  startDate: '', initialTerm: '36 months',
+};
+
+const fonnStepMeta = [
+  null,
+  { pct:'16.6%', badge:'Step 1 of 6', label:'<strong>Customer details</strong>' },
+  { pct:'33.3%', badge:'Step 2 of 6', label:'<strong>Contacts</strong>' },
+  { pct:'50%',   badge:'Step 3 of 6', label:'<strong>Subscription &amp; modules</strong>' },
+  { pct:'66.6%', badge:'Step 4 of 6', label:'<strong>Fees</strong>' },
+  { pct:'83.3%', badge:'Step 5 of 6', label:'<strong>Commercial terms</strong>' },
+  { pct:'100%',  badge:'Step 6 of 6', label:'<strong>Review &amp; generate</strong>' },
+];
+
+function fonnGoTo(n) {
+  document.querySelectorAll('#app-fonn .step').forEach(s => s.classList.remove('active'));
+  const target = n === 'done'
+    ? document.getElementById('fonn-step-done')
+    : document.getElementById('fonn-step-' + n);
+  target.classList.add('active');
+  if (n !== 'done') {
+    const m = fonnStepMeta[n];
+    document.getElementById('fonnProgressFill').style.width = m.pct;
+    document.getElementById('fonnStepBadge').textContent = m.badge;
+    document.getElementById('fonnStepLabel').innerHTML = m.label;
+    if (n === 2) fonnS2Update();
+    if (n === 3) fonnS3Update();
+    if (n === 5) fonnS5Update();
+    if (n === 6) fonnBuildReview();
+  } else {
+    document.getElementById('fonnProgressFill').style.width = '100%';
+    document.getElementById('fonnStepBadge').textContent = 'Complete';
+    document.getElementById('fonnStepLabel').innerHTML = '<strong>Document generated</strong>';
+  }
+  window.scrollTo(0, 0);
+}
+
+function fonnS1Update() {
+  const name = document.getElementById('fonn-companyName').value.trim();
+  const num  = document.getElementById('fonn-companyNumber').value.trim();
+  const addr = document.getElementById('fonn-address').value.trim().replace(/\n/g, ', ');
+  fonnState.companyName = name; fonnState.companyNumber = num; fonnState.address = addr;
+  const el = (id) => document.getElementById(id);
+  if (el('fonn-t-name')) el('fonn-t-name').textContent = name || '[COMPANY NAME]';
+  if (el('fonn-t-num'))  el('fonn-t-num').textContent  = num  || '[company number]';
+  if (el('fonn-t-numwrap')) el('fonn-t-numwrap').style.display = num ? '' : 'none';
+  if (el('fonn-t-addr')) el('fonn-t-addr').textContent = addr || '[address]';
+  document.getElementById('fonn-s1next').disabled = name.length === 0;
+}
+
+function fonnS2Update() {
+  const aname  = document.getElementById('fonn-accessName').value.trim();
+  const aemail = document.getElementById('fonn-accessEmail').value.trim();
+  const cname  = document.getElementById('fonn-custName').value.trim();
+  const cemail = document.getElementById('fonn-custEmail').value.trim();
+  fonnState.accessName = aname; fonnState.accessEmail = aemail;
+  fonnState.custName = cname;   fonnState.custEmail = cemail;
+  const el = (id) => document.getElementById(id);
+  if (el('fonn-pv-aname'))  el('fonn-pv-aname').textContent  = aname  || '[your name]';
+  if (el('fonn-pv-aemail')) el('fonn-pv-aemail').textContent = aemail || '[your email]';
+  if (el('fonn-pv-coname')) el('fonn-pv-coname').textContent = fonnState.companyName || '[company name]';
+  if (el('fonn-pv-cname'))  el('fonn-pv-cname').textContent  = cname  || '[customer name]';
+  if (el('fonn-pv-cemail')) el('fonn-pv-cemail').textContent = cemail || '[customer email]';
+  document.getElementById('fonn-s2next').disabled = !(aname.length > 0 && cname.length > 0);
+}
+
+function fonnS3Update() {
+  const tierEl = document.querySelector('input[name="fonn-tier"]:checked');
+  const onbEl  = document.querySelector('input[name="fonn-onboarding"]:checked');
+  fonnState.subscriptionTier = tierEl ? tierEl.value : 'core';
+  fonnState.onboardingPackage = onbEl ? onbEl.value : 'premium';
+  fonnState.modules = Array.from(document.querySelectorAll('.fonn-module-cb:checked')).map(cb => cb.value);
+  const tierLabels = { core: 'Fonn Core', pro: 'Fonn Pro', proplus: 'Fonn Pro Plus' };
+  const tierCounts = { core: '3', pro: '6', proplus: '10' };
+  const tier = fonnState.subscriptionTier;
+  const pvEl = document.getElementById('fonn-pv-subscription');
+  if (pvEl) {
+    const mods = fonnState.modules.length > 0 ? fonnState.modules.join(', ') : 'none selected';
+    pvEl.innerHTML = '<strong>' + tierLabels[tier] + ' Subscription</strong> &mdash; includes ' + tierCounts[tier] + ' x selected modules<br>' +
+      (fonnState.modules.length > 0 ? '<span style="color:#555;">Modules: ' + mods + '</span><br>' : '') +
+      '<span style="color:#555;">Onboarding: ' + (fonnState.onboardingPackage === 'premium' ? 'Premium Package' : fonnState.onboardingPackage === 'basic' ? 'Basic Package' : 'Self Serve Package') + '</span>';
+  }
+}
+
+function fonnS4Update() {
+  const impl   = document.getElementById('fonn-implFee').value.trim();
+  const ann    = document.getElementById('fonn-annualSubFee').value.trim();
+  const sup    = document.getElementById('fonn-supportFees').value.trim();
+  const csplan = document.getElementById('fonn-csplan').value;
+  fonnState.implFee = impl; fonnState.annualSubFee = ann;
+  fonnState.supportFees = sup; fonnState.csplan = csplan;
+  const el = (id) => document.getElementById(id);
+  if (el('fonn-pv-impl'))    el('fonn-pv-impl').textContent    = impl   || '[fee]';
+  if (el('fonn-pv-annsub'))  el('fonn-pv-annsub').textContent  = ann    || '[fee]';
+  if (el('fonn-pv-support')) el('fonn-pv-support').textContent = sup    || 'Included';
+  if (el('fonn-pv-csplan'))  el('fonn-pv-csplan').textContent  = csplan || 'Standard';
+  if (el('fonn-pv-total'))   el('fonn-pv-total').textContent   = ann    ? ann + ' + VAT' : '—';
+  document.getElementById('fonn-s4next').disabled = ann.length === 0;
+}
+
+function fonnToggleEffectiveDate() {
+  const cb = document.getElementById('fonn-effectiveDate');
+  const dateInput = document.getElementById('fonn-startDate');
+  if (cb.checked) {
+    dateInput.disabled = true;
+    dateInput.style.opacity = '0.4';
+    fonnState.startDate = 'Effective Date';
+    const pv = document.getElementById('fonn-pv-start');
+    if (pv) pv.textContent = 'Effective Date';
+    document.getElementById('fonn-s5next').disabled = false;
+    document.getElementById('fonn-s5next').style.opacity = '1';
+  } else {
+    dateInput.disabled = false;
+    dateInput.style.opacity = '1';
+    fonnState.startDate = dateInput.value;
+    fonnS5Update();
+  }
+}
+
+function fonnS5Update() {
+  const sd   = document.getElementById('fonn-startDate').value.trim();
+  const init = document.getElementById('fonn-initialTerm').value.trim();
+  fonnState.startDate = sd; fonnState.initialTerm = init;
+  const el = (id) => document.getElementById(id);
+  if (el('fonn-pv-startdate'))   el('fonn-pv-startdate').textContent   = sd   || '[date]';
+  if (el('fonn-pv-initialterm')) el('fonn-pv-initialterm').textContent = init || '36 months';
+  document.getElementById('fonn-s5next').disabled = sd.length === 0;
+}
+
+function fonnBuildReview() {
+  const s = fonnState;
+  const el = (id) => document.getElementById(id);
+  const set = (id, val) => { const e = el(id); if (e) e.textContent = val || '—'; };
+  set('fonn-rv-company', s.companyName + (s.companyNumber ? ' (' + s.companyNumber + ')' : ''));
+  set('fonn-rv-address', s.address);
+  set('fonn-rv-access',  s.accessName + (s.accessEmail ? ' • ' + s.accessEmail : ''));
+  set('fonn-rv-cust',    s.custName   + (s.custEmail   ? ' • ' + s.custEmail   : ''));
+  set('fonn-rv-impl',    s.implFee    || 'Not entered');
+  set('fonn-rv-annsub',  s.annualSubFee);
+  set('fonn-rv-support', s.supportFees);
+  set('fonn-rv-csplan',  s.csplan);
+  set('fonn-rv-start',   s.startDate);
+  set('fonn-rv-term',    s.initialTerm || '36 months');
+  const tierLabels = { core: 'Fonn Core', pro: 'Fonn Pro', proplus: 'Fonn Pro Plus' };
+  const subEl = el('fonn-rv-subscription');
+  if (subEl) {
+    subEl.innerHTML =
+      '<div class="review-row"><span class="review-key">Tier</span><span class="review-val">' + (tierLabels[s.subscriptionTier] || s.subscriptionTier) + '</span></div>' +
+      '<div class="review-row"><span class="review-key">Modules</span><span class="review-val">' + (s.modules.length > 0 ? s.modules.join(', ') : 'None') + '</span></div>' +
+      '<div class="review-row"><span class="review-key">Onboarding</span><span class="review-val">' + (s.onboardingPackage === 'premium' ? 'Premium Package' : s.onboardingPackage === 'basic' ? 'Basic Package' : 'Self Serve Package') + '</span></div>';
+  }
+  fonnBuildDocPreview();
+}
+
+function fonnBuildDocPreview() {
+  const s = fonnState;
+  const h = (str) => (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const tbl  = (rows) => '<table class="doc-table" style="margin-bottom:8px;font-size:10px;">' + rows + '</table>';
+  const tr   = (cells) => '<tr>' + cells + '</tr>';
+  const td   = (content, attrs) => '<td' + (attrs?' '+attrs:'') + '>' + content + '</td>';
+  const rh   = (label, cols) => '<td class="th" style="background:#e5173f;color:#fff;font-weight:700;" colspan="' + (cols||1) + '">' + label + '</td>';
+  const lbl  = (text) => '<td style="font-weight:700;width:200px;font-size:10px;">' + h(text) + '</td>';
+  const val  = (text) => '<td style="font-size:10px;">' + h(text) + '</td>';
+  const chk  = (on) => (on ? '☒ ' : '☐ ');
+  const tierLabels = { core: 'Fonn Core Subscription', pro: 'Fonn Pro Subscription', proplus: 'Fonn Pro Plus Subscription' };
+  const tierDesc   = {
+    core:    'Documents/Drawings, Issues, Tasks, Report Hub, Scope of Works + 3 x selected Modules',
+    pro:     'Documents/Drawings, Issues, Tasks, Report Hub, Scope of Works + 6 x selected Modules',
+    proplus: 'Documents/Drawings, Issues, Tasks, Report Hub, Scope of Works + 10 x selected Modules',
+  };
+  const allMods = ['RFIs','Submittals','Tender Packages','Check-ins','Time Sheets','BIM Viewer','Variations','Image Gallery','Metadata Extract','Timeline','Digital Forms'];
+  const modChecks = allMods.map(m => chk(s.modules.includes(m)) + h(m)).join('   ');
+  const tierRowHtml = (key) => tr(td(chk(s.subscriptionTier===key) + '<strong>' + tierLabels[key] + '</strong> — ' + tierDesc[key], 'colspan="2"'));
+  const onbLabel = s.onboardingPackage === 'premium' ? 'Premium Package' : s.onboardingPackage === 'basic' ? 'Basic Package' : 'Self Serve Package';
+  const premItems = ['Access to online training videos and articles','24/7 Live chat and phone support','Set up of folder structure &amp; Scope of Works','Dedicated customer support contact','1 x 60-minute online admin set up session','3 x 90-minute online team training','1-day on-site training for your admins and site teams (UK mainland only)','One-time set-up fee (£1,500.00)'];
+  const basicItems = ['Access to online training videos and articles','7am-7pm Mon-Fri Live chat and phone support','1 x 60-minute teams set up session','2 x 90-minute online team training'];
+  const selfServeItems = ['Access to online training videos and articles','7am-7pm Mon-Fri Live chat and phone support','1 x 60-minute teams set up session'];
+  const onbItems  = s.onboardingPackage === 'premium' ? premItems : s.onboardingPackage === 'basic' ? basicItems : selfServeItems;
+
+  const out =
+    '<div style="font-size:11px;font-weight:700;margin-bottom:4px;text-align:center;">AGREEMENT</div>' +
+    '<p style="font-size:10px;"><strong>PARTIES:</strong><br>The Access contracting party described in the Core Terms, trading as the <strong>Access Group</strong></p>' +
+    '<p style="font-size:10px;"><strong>AND</strong></p>' +
+    '<p style="font-size:10px;"><strong>' + h(s.companyName||'[Company Name]') + '</strong>' + (s.companyNumber ? ' (Company no. ' + h(s.companyNumber) + ')' : '') + ' whose principal place of business is at ' + h(s.address||'[address]') + '</p>' +
+    tbl(tr(rh('THIS AGREEMENT COMPRISES:',1)) + tr(td('<span style="font-size:10px;">1. The Order(s), including the Commercial Terms; and<br>2. These terms and conditions: <u>www.theaccessgroup.com/standardtandcs</u></span>'))) +
+    tbl(tr(rh('Company') + rh('Contact Name') + rh('Email')) +
+        tr(td('<strong>The Access Group</strong>') + td(h(s.accessName)) + td(h(s.accessEmail))) +
+        tr(td('<strong>' + h(s.companyName||'[Company Name]') + '</strong>') + td(h(s.custName)) + td(h(s.custEmail)))) +
+    '<p style="font-size:10px;font-weight:700;">SIGNED BY:</p>' +
+    tbl(tr(td('<strong>Signed on behalf of ' + h(s.companyName||'[Company Name]') + '</strong>') + td('<strong>Signed on behalf of Access</strong>')) +
+        tr(td('Signature') + td('Signature')) + tr(td('Print name:') + td('Print name')) +
+        tr(td('Title') + td('Title')) + tr(td('Effective Date') + td('Date'))) +
+    '<hr style="border:none;border-top:1px solid #ddd;margin:6px 0;">' +
+    tbl(tr(rh('Fees Summary',2)) +
+        tr(lbl('One-off Implementation Fees') + val(s.implFee||'—')) +
+        tr(lbl('Annual Software Subscription Fees') + val(s.annualSubFee||'—')) +
+        tr(lbl('Annual Support Fees') + val(s.supportFees||'Included')) +
+        tr(lbl('Customer Success Plan') + val(s.csplan||'Standard')) +
+        tr(lbl('Total Annual Fees') + '<td style="font-weight:700;font-size:10px;">' + h(s.annualSubFee ? s.annualSubFee + ' + VAT' : '—') + '</td>')) +
+    tbl(tr(rh('Access Product: Fonn',2)) +
+        tierRowHtml('core') + tierRowHtml('pro') + tierRowHtml('proplus') +
+        tr(td('<strong>Additional Modules:</strong>') + td(modChecks)) +
+        tr(rh('Other Services',2)) +
+        tr(lbl('On Site Training (UK Mainland)') + val('£1,350.00 per day – plus travel expenses')) +
+        tr(lbl('Remote Training (Teams)') + val('£850.00 per day or £150.00 per hour')) +
+        tr(lbl('CS Forms and SoW Building') + val('£150.00 per hour')) +
+        tr(lbl('Developer Support') + val('£1,350.00 per day')) +
+        tr(rh('Onboarding Package',2)) +
+        tr(td(onbItems.map(i => '☒ ' + i).join('<br>')) + td('<strong>' + onbLabel + '</strong>')) +
+        tr(rh('Data Storage',2)) +
+        tr(td('We will store your data for 12 months after the termination of the agreement for free. Following this, You can extend for additional years, for 10% of the current subscription cost.','colspan="2"'))) +
+    tbl(tr(rh('Commercial Terms',2)) +
+        tr(lbl('Start Date') + val(s.startDate||'—')) +
+        tr(lbl('Initial Term') + val(s.initialTerm||'36 months')) +
+        tr(lbl('Further Term') + val('12 months')) +
+        tr(lbl('SaaS Fees, Annual Licence Fees, Customer Success Plan Fees and Hosting Fees') + val('First year, invoiced on the Start Date and payable within 30 days by bacs. Subsequent years, invoiced and due for payment prior to each anniversary of the Start Date and payable within 30 days by bacs.')) +
+        tr(lbl('Implementation Fees') + val('All FlightPath offers and pre-billed Additional Services are invoiced on the Start Date and are payable within 30 days by direct debit.')) +
+        tr(lbl('Consulting Services Fees') + val('All Consulting Services and FlightPath time & materials additional services are invoiced upon completion of work carried out and are payable within 30 days by direct debit.')) +
+        tr(lbl('Expenses') + val('Relevant to Consulting Services and/or Project Management Services only, Expenses will be invoiced as incurred, and shall be payable by You within 30 days.'))) +
+    tbl(tr(rh('Additional Terms',2)) +
+        tr(lbl('The definition of Authorised User shall be replaced with:') + val('Authorised User(s): those employees, agents and independent contractors of the Customer and its Subsidiaries, who are authorised by You to use the Access Products, Services and the Documentation.')));
+
+  const pv = document.getElementById('fonn-doc-preview');
+  if (pv) pv.innerHTML = out;
+}
+
+async function fonnHandleGenerate() {
+  document.getElementById('fonn-generateBtn').style.display = 'none';
+  document.getElementById('fonn-generatingMsg').style.display = 'flex';
+  try {
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+            WidthType, AlignmentType, ShadingType, BorderStyle, UnderlineType } = docx;
+    const d = fonnState;
+    const ETW = 9350, C1 = Math.round(ETW*0.40), C2 = ETW-C1;
+    const cm = { top:60, bottom:60, left:100, right:100 };
+    const bord = () => ({
+      top:   {style:BorderStyle.SINGLE,size:4,color:'000000'},
+      bottom:{style:BorderStyle.SINGLE,size:4,color:'000000'},
+      left:  {style:BorderStyle.SINGLE,size:4,color:'000000'},
+      right: {style:BorderStyle.SINGLE,size:4,color:'000000'},
+    });
+    const p  = (runs, opts) => new Paragraph({children:runs,spacing:{after:80},...(opts||{})});
+    const t  = (text, opts) => new TextRun({text:text||'',...(opts||{})});
+    const tb = (text, opts) => new TextRun({text:text||'',bold:true,...(opts||{})});
+    const tu = (text) => new TextRun({text:text||'',underline:{type:UnderlineType.SINGLE}});
+    const redHdr = (label, colSpan, tw) => new TableCell({
+      children:[p([tb(label,{color:'FFFFFF'})])],
+      columnSpan:colSpan||1, width:{size:tw||ETW,type:WidthType.DXA},
+      margins:cm, borders:bord(),
+      shading:{type:ShadingType.CLEAR,color:'E5173F',fill:'E5173F'},
+    });
+    const cell = (children, w, colSpan) => new TableCell({
+      children, width:{size:w||ETW,type:WidthType.DXA},
+      columnSpan:colSpan||1, margins:cm, borders:bord(),
+    });
+    const lblCell = (text) => cell([p([tb(text)])], C1);
+    const plnCell = (text) => cell([p([t(text)])], C1);
+    const valCell = (runs) => cell([p(Array.isArray(runs)?runs:[t(runs||'')])], C2);
+    const chk = (on) => on ? '☒ ' : '☐ ';
+    const tierLabels = {core:'Fonn Core Subscription',pro:'Fonn Pro Subscription',proplus:'Fonn Pro Plus Subscription'};
+    const tierDesc = {
+      core:   'Documents/Drawings, Issues, Tasks, Report Hub, Scope of Works + 3 x selected Modules',
+      pro:    'Documents/Drawings, Issues, Tasks, Report Hub, Scope of Works + 6 x selected Modules',
+      proplus:'Documents/Drawings, Issues, Tasks, Report Hub, Scope of Works + 10 x selected Modules',
+    };
+    const allMods = ['RFIs','Submittals','Tender Packages','Check-ins','Time Sheets','BIM Viewer','Variations','Image Gallery','Metadata Extract','Timeline','Digital Forms'];
+    const modText = allMods.map(m => chk(d.modules.includes(m)) + m).join('   ');
+    const onbLabel = d.onboardingPackage==='premium' ? 'Premium Package' : d.onboardingPackage==='basic' ? 'Basic Package' : 'Self Serve Package';
+    const premItems = ['Access to online training videos and articles','24/7 Live chat and phone support','Set up of folder structure & Scope of Works','Dedicated customer support contact','1 x 60-minute online admin set up session','3 x 90-minute online team training','1-day on-site training for your admins and site teams (UK mainland only)','One-time set-up fee (£1,500.00)'];
+    const basicItems = ['Access to online training videos and articles','7am-7pm Mon-Fri Live chat and phone support','1 x 60-minute teams set up session','2 x 90-minute online team training'];
+    const selfServeItems = ['Access to online training videos and articles','7am-7pm Mon-Fri Live chat and phone support','1 x 60-minute teams set up session'];
+    const onbItems  = d.onboardingPackage==='premium' ? premItems : d.onboardingPackage==='basic' ? basicItems : selfServeItems;
+    const CW3 = [Math.round(ETW*0.34), Math.round(ETW*0.33), ETW-Math.round(ETW*0.34)-Math.round(ETW*0.33)];
+    const hdrCell3 = (text, w) => new TableCell({children:[p([tb(text,{color:'FFFFFF'})])],width:{size:w,type:WidthType.DXA},margins:cm,borders:bord(),shading:{type:ShadingType.CLEAR,color:'E5173F',fill:'E5173F'}});
+    const dataCell3 = (text, w, bold) => new TableCell({children:[p(bold?[tb(text||'')]:[t(text||'')])],width:{size:w,type:WidthType.DXA},margins:cm,borders:bord()});
+    const HW = Math.floor(ETW/2);
+    const sigCell = (content, w) => new TableCell({children:[p(Array.isArray(content)?content:[t(content||'')])],width:{size:w,type:WidthType.DXA},margins:cm,borders:bord()});
+    const totalFee = d.annualSubFee ? d.annualSubFee+' + VAT' : '';
+    const fmtDate = (s) => {
+      if (!s || s === 'Effective Date') return s || '';
+      const dt = new Date(s + 'T00:00:00');
+      return dt.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+    };
+    const tierRowDocx = (key) => new TableRow({children:[cell([p([tb(chk(d.subscriptionTier===key)+tierLabels[key]),t(' — '+tierDesc[key])])],ETW,2)]});
+    const onbRows = onbItems.map(item => new TableRow({children:[cell([p([tb('☒ '),t(item)])],ETW,2)]}));
+    const table1 = new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:[ETW],rows:[
+      new TableRow({children:[new TableCell({
+        children:[
+          p([tb('THIS AGREEMENT COMPRISES:',{color:'FFFFFF'})]),
+          p([t('1. The Order(s), including the Commercial Terms; and',{color:'FFFFFF'})]),
+          p([new TextRun({text:'2. These terms and conditions: ',color:'FFFFFF'}),new TextRun({text:'www.theaccessgroup.com/standardtandcs',color:'FFFFFF',underline:{type:UnderlineType.SINGLE}})]),
+        ],
+        width:{size:ETW,type:WidthType.DXA}, margins:cm, borders:bord(),
+        shading:{type:ShadingType.CLEAR,color:'E5173F',fill:'E5173F'},
+      })]}),
+    ]});
+    const table2 = new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:CW3,rows:[
+      new TableRow({children:[hdrCell3('Company',CW3[0]),hdrCell3('Contact Name',CW3[1]),hdrCell3('Email',CW3[2])]}),
+      new TableRow({children:[dataCell3('The Access Group',CW3[0],true),dataCell3(d.accessName,CW3[1]),dataCell3(d.accessEmail,CW3[2])]}),
+      new TableRow({children:[dataCell3(d.companyName,CW3[0],true),dataCell3(d.custName,CW3[1]),dataCell3(d.custEmail,CW3[2])]}),
+    ]});
+    const table3 = new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:[HW,ETW-HW],rows:[
+      new TableRow({children:[sigCell([tb('Signed on behalf of '+d.companyName)],HW),sigCell([tb('Signed on behalf of Access')],ETW-HW)]}),
+      new TableRow({children:[sigCell('Signature',HW),sigCell('Signature',ETW-HW)]}),
+      new TableRow({children:[sigCell('Print name:',HW),sigCell('Print name',ETW-HW)]}),
+      new TableRow({children:[sigCell('Title',HW),sigCell('Title',ETW-HW)]}),
+      new TableRow({children:[sigCell('Effective Date',HW),sigCell('Date',ETW-HW)]}),
+    ]});
+    const table4 = new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:[C1,C2],rows:[
+      new TableRow({children:[redHdr('Fees Summary',2,ETW)]}),
+      new TableRow({children:[plnCell('One-off Implementation Fees'),valCell([t(d.implFee||'')])]}),
+      new TableRow({children:[plnCell('Annual Software Subscription Fees'),valCell([tb(d.annualSubFee||'')])]}),
+      new TableRow({children:[plnCell('Annual Support Fees'),valCell([t(d.supportFees||'Included')])]}),
+      new TableRow({children:[plnCell('Customer Success Plan'),valCell([t(d.csplan||'Standard')])]}),
+      new TableRow({children:[plnCell('Total Annual Fees'),valCell([tb(totalFee)])]}),
+    ]});
+    const table5 = new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:[C1,C2],rows:[
+      new TableRow({children:[redHdr('Access Product: Fonn',2,ETW)]}),
+      tierRowDocx('core'),tierRowDocx('pro'),tierRowDocx('proplus'),
+      new TableRow({children:[lblCell('Additional Modules:'),valCell([t(modText)])]}),
+      new TableRow({children:[redHdr('Other Services',2,ETW)]}),
+      new TableRow({children:[lblCell('On Site Training (UK Mainland)'),valCell([t('£1,350.00 per day – plus travel expenses')])]}),
+      new TableRow({children:[lblCell('Remote Training (Teams)'),valCell([t('£850.00 per day or £150.00 per hour')])]}),
+      new TableRow({children:[lblCell('CS Forms and SoW Building'),valCell([t('£150.00 per hour')])]}),
+      new TableRow({children:[lblCell('Developer Support'),valCell([t('£1,350.00 per day')])]}),
+      new TableRow({children:[redHdr('Onboarding Package',2,ETW)]}),
+      ...onbRows,
+      new TableRow({children:[cell([p([tb(onbLabel)])],ETW,2)]}),
+      new TableRow({children:[redHdr('Data Storage',2,ETW)]}),
+      new TableRow({children:[cell([p([t('We will store your data for 12 months after the termination of the agreement for free. Following this, You can extend for additional years, for 10% of the current subscription cost.')])],ETW,2)]}),
+    ]});
+    const table6 = new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:[C1,C2],rows:[
+      new TableRow({children:[redHdr('Commercial Terms',2,ETW)]}),
+      new TableRow({children:[lblCell('Start Date'),valCell([t(fmtDate(d.startDate))])]}),
+      new TableRow({children:[lblCell('Initial Term'),valCell([t(d.initialTerm||'36 months')])]}),
+      new TableRow({children:[lblCell('Further Term'),valCell([t('12 months')])]}),
+      new TableRow({children:[lblCell('SaaS Fees, Annual Licence Fees, Customer Success Plan Fees and Hosting Fees'),cell([p([t('First year, invoiced on the Start Date and payable within 30 days by bacs.')]),p([t('Subsequent years, invoiced and due for payment prior to each anniversary of the Start Date and payable within 30 days by bacs.')])],C2)]}),
+      new TableRow({children:[lblCell('Implementation Fees'),valCell([t('All FlightPath offers and pre-billed Additional Services are invoiced on the Start Date and are payable within 30 days by direct debit.')])]}),
+      new TableRow({children:[lblCell('Consulting Services Fees'),valCell([t('All Consulting Services and FlightPath time & materials additional services are invoiced upon completion of work carried out and are payable within 30 days by direct debit.')])]}),
+      new TableRow({children:[lblCell('Expenses'),valCell([t('Relevant to Consulting Services and/or Project Management Services only, Expenses will be invoiced as incurred, and shall be payable by You within 30 days.')])]}),
+    ]});
+    const table7 = new Table({width:{size:ETW,type:WidthType.DXA},columnWidths:[C1,C2],rows:[
+      new TableRow({children:[redHdr('Additional Terms',2,ETW)]}),
+      new TableRow({children:[lblCell('The definition of Authorised User shall be replaced with:'),valCell([t('Authorised User(s): those employees, agents and independent contractors of the Customer and its Subsidiaries, who are authorised by You to use the Access Products, Services and the Documentation.')])]}),
+    ]});
+    const sp = (n) => new Paragraph({children:[],spacing:{after:n||160}});
+    const hd = (text) => new Paragraph({children:[tb(text)],spacing:{after:80}});
+    const HEADER_B64 = 'iVBORw0KGgoAAAANSUhEUgAACbEAAAHBCAIAAADSU/NiAAAAAXNSR0IArs4c6QAAAAlwSFlzAAAuIAAALiAB1RweGwAAb4JJREFUeF7t3cGqJceZJ/C2Z7BgQDAgGYRhHsBaaa3FtJazLgkG4Y2eoKmFFgPdNo3V3nlRs+runTdGG6mewd0DWmtlPcCAMLS08sqCoearCjmcPudkZGRmZJ7MOL/iYuRbmZFf/CLOrXvyfyLyBy9evPgbfwgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQINCpwA877ZduESBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBA4KWATNQ8IECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZwGZaM+jq28ECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECMhEzQECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBHoWkIn2PLr6RoAAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQICATNQcIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECgZ4EfvHjxouf+6RuBOoE/ffHld198WXfsX456/eOP5p7ieAIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAgZ0FZKI7g7vcIQT++OvfpDryf6ws60fvvvPau+9EI/k/VjbodAIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAgVYCMtFWkto5tEBaBrpsMeiyjqUlpBaSLtNzFgECBAgQIECAAAECBAgQIECAAAECBAgQIECgoYBMtCGmpg4nEMtA98xBx/ofyaj1o4ebHAoiQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEHkZAJvowQ/0wHU0haKtNcduyCUfbemqNAAECBAgQIECAAAECBAgQIECAAAECBAgQIFAjIBOtUXLMOQQOsiq0Bks4WqPkGAIECBAgQIAAAQIECBAgQIAAAQIECBAgQIBAEwGZaBNGjdxT4MgLQ8suaUNdzxy95+xxbQIECBAgQIAAAQIECBAgQIAAAQIECBAgQOABBGSiDzDI/XYx0tBYGxo75Z69ixGLSkbPPojqJ0CAAAECBAgQIECAAAECBAgQIECAAAECBA4rIBM97NAorCTQTRo67KRk1KQnQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECGwhIBPdQlWbGwp0mYZKRjecMZomQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEHl5AJvrwU+A8AN2noZLR80xGlRIgQIAAAQIECBAgQIAAAQIECBAgQIAAAQJnEpCJnmm0HrnWb5487eC5obNG8EfvvhO76b727juzznIwAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIDAhYBM1JQ4ukAsD/32ydOjV7lZfZGMvvn82WbNa5gAAQIECBAgQIAAAQIECBAgQIAAAQIECBAg0L+ATLT/MT5vDx9qs9zyML3x/JkFo+edySonQIAAAQIECBAgQIAAAQIECBAgQIAAAQIE7isgE72vv6uPCjz48tBrFwtGvVoIECBAgAABAgQIECBAgAABAgQIECBAgAABAssEZKLL3Jy1rcADPj20EtSC0UoohxEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEssAPWRA4lEAsD/36rfe+++LLQ1V1nGLi0ap//PVvjlOPSggQIECAAAECBAgQIECAAAECBAgQIECAAAECxxewTvT4Y/RAFdovt3Kw7aNbCeUwAgQIECBAgAABAgQIECBAgAABAgQIECBAgEAIyERNg6MI2C931khELPr6xx+99u47s85yMAECBAgQIECAAAECBAgQIECAAAECBAgQIEDgAQVkog846EfsskB02ah4vOgyN2cRIECAAAECBAgQIECAAAECBAgQIECAAAECDyXgeaIPNdxH7GzslysQXTww8XjRAFx8uhMJECBAgAABAgQIECBAgAABAgQIECBAgAABAo8gYJ3oI4zycfvoAaJNxiY20Y2vJk1phAABAgQIECBAgAABAgQIECBAgAABAgQIECDQn4BMtL8xPU2PBKINhyoeL/rm82cNG9QUAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQKAbAXvndjOUJ+uIQLTtgH33agvitm1qjQABAgQIECBAgAABAgQIECBAgAABAgQIECDQh4BMtI9xPFkvBKJbDJhYdAtVbRIgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIdCNg7t4NBPFkXjhmI5udxxia0r737TsE06o/0MR0w/O/jDMMbz5+Vu3CcUlVCgAABAgQIECBAgAABAgQIECBAgAABAgQIENhBQCa6A7JL/JXA12+9dwSRlH1OJqCVpf7x17+JI9P/HuGPWPQIo6AGAgQIECBAgAABAgQIECBAgAABAgQIECBA4CACMtGDDMSjlBHPvMyLLO/S51gP2ioHHas/ktEjrB8Vi95lgrkoAQIECBAgQIAAAQIECBAgQIAAAQIECBAgcEABmegBB6Xbku4YiEYOGmnozjvKRjh635Wj0eW8J3C3s0rHCBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQJTAjLRKSF/30jgXoHo3XPBWDMayei9VsdGGPzm82eNxlAzBAgQIECAAAECBAgQIECAAAECBAgQIECAAIFTCshETzlspys6csFvnzzduey7p6HD/t4xGRWL7jzxXI4AAQIECBAgQIAAAQIECBAgQIAAAQIECBA4moBM9Ggj0mE9+weih0pDj5CMikU7fF3pEgECBAgQIECAAAECBAgQIECAAAECBAgQIFAtIBOtpnLgUoGv33pv6amzzztsGnqEZPSN5892fqLq7PFzAgECBAgQIECAAAECBAgQIECAAAECBAgQIEBgAwGZ6AaomhwI7PYY0VgKGYHoiTK/eMhofO08WcSiO4O7HAECBAgQIECAAAECBAgQIECAAAECBAgQIHAEAZnoEUah2xp22zX3pFHfXR4yelKrbl8kOkaAAAECBAgQIECAAAECBAgQIECAAAECBAhsLyAT3d74ga+ww665p1seej0d9l8weoodhh/4daPrBAgQIECAAAECBAgQIECAAAECBAgQIECAQGMBmWhjUM1lgR12zY1A9M3nzzow321Bbbbqhq6D0dcFAgQIECBAgAABAgQIECBAgAAB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DWdYB2gdvmB0iQABAgQIECBAgAABAgQIECBAgAABAgQIENhMwDrRzWgfvuHYlHXTHXQTcOyjG88uPe8+urE8NBa87jlZYlDOniLvyeVaBAgQIECAAAECBAgQIECAAAECBAgQIECAQAcC1ol2MIiH7sJuW8Kebu3j/stDY6K88fyZB4ge+gWjOAIECBAgQIAAAQIECBAgQIAAAQIECBAgQGADAZnoBqia/GuBWMe5G8kpMr9IQ//469/ECtfdWNKFToGzs4nLESBAgAABAgQIECBAgAABAgQIECBAgAABAo8gIBN9hFG+cx93XhAZC0Zje9jDroaMNDS+9h8Sgej+5q5IgAABAgQIECBAgAABAgQIECBAgAABAgQIHERAJnqQgei8jP2DwAMmo/sjpFl1ul2FO38x6B4BAgQIECBAgAABAgQIECBAgAABAgQIECCwu4BMdHfyR73gbg8WHQIfIRmNZbKxTe5d1oYKRB/11abfBAgQIECAAAECBAgQIECAAAECBAgQIECAwF8JyERNiP0E7hKLpu7FbrrxtV9XX13pXs8Nzd20QnTnEXc5AgQIECBAgAABAgQIECBAgAABAgQIECBA4JgCMtFjjkufVe38YNFrxMgI4zmjW4ej910YKhDt88WjVwQIECBAgAABAgQIECBAgAABAgQIECBAgMAKAZnoCjynzhe4eyyaS07JaKt8NOWg6X/nq7Q/443nzyL9bd+uFgkQIECAAAECBAgQIECAAAECBAgQIECAAAECJxSQiZ5w0E5e8nFi0QyZk9G0kLQGOD8f9Dg5aC5bIFozgo4hQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEHkdAJvo4Y32gnh4wFj2QzrpSBKLr/JxNgAABAgQIECBAgAABAgQIECBAgAABAgQIdCjwww77pEuHF4i1mBHdHb7MkxUYi1wFoicbM+USIECAAAECBAgQIECAAAECBAgQIECAAAECuwhYJ7oLs4vcErBatOG8iED0TTFzQ1BNESBAgAABAgQIECBAgAABAgQIECBAgAABAh0JWCfa0WCerStWi7YaMYFoK0ntECBAgAABAgQIECBAgAABAgQIECBAgAABAl0KyES7HNbTdEosun6oBKLrDbVAgAABAgQIECBAgAABAgQIECBAgAABAgQI9C1g79y+x/ccvYtNdP/4699898WX5yj3SFV6gOiRRkMtBAgQIECAAAECBAgQIECAAAECBAgQIECAwEEFZKIHHZgHLOubJ0/ForPGXSA6i8vBBAgQIECAAAECBAgQIECAAAECBAgQIECAwMMK2Dv3YYf+cB1/8/mz2Ab2cGUdsqCAEogecmQURYAAAQIECBAgQIAAAQIECBAgQIAAAQIECBxRwDrRI47KI9cU++h+++TpIwtM9t0DRCeJHECAAAECBAgQIECAAAECBAgQIECAAAECBAgQGArIRM2Hwwl4vGhhSCwPPdx8VRABAgQIECBAgAABAgQIECBAgAABAgQIECBweAGZ6OGH6FEL/OOvfxNfj9r7G/2O5aGvf/zRa7YXNicIECBAgAABAgQIECBAgAABAgQIECBAgAABAjMFZKIzwRy+o4B9dDN2pKHxtaO9SxEgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIE+hGQifYzlr325MEXjFoe2uvE1i8CBAgQIECAAAECBAgQIECAAAECBAgQIEBgNwGZ6G7ULrRc4GGfMGp56PJJ40wCBAgQIECAAAECBAgQIECAAAECBAgQIECAwJ8FZKLmwmkEHmorXWnoaealQgkQIECAAAECBAgQIECAAAECBAgQIECAAIHDC8hEDz9ECvxrge630rVZrilPgAABAgQIECBAgAABAgQIECBAgAABAgQIEGgrIBNt66m1nQS6TEaloTvNHpchQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEHkxAJvpgA95Xd7tJRqWhfU1MvSFAgAABAgQIECBAgAABAgQIECBAgAABAgSOJSATPdZ4qGaBQCSj8ajR7774csG5dz/Fc0PvPgQKIECAAAECBAgQIECAAAECBAgQIECAAAECBLoXkIl2P8SP0sEUi0Y+eooOx8LQ1959JwLRU1SrSAIECBAgQIAAAQIECBAgQIAAAQIECBAgQIDAqQVkoqcePsXfEIhwNJLRYy4bFYWasgQIECBAgAABAgQIECBAgAABAgQIECBAgACB/QVkovubu+JOAsdZOSoK3WnIXYYAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgcEtAJmpePIRA2lN3z511Uw6a/vchiHWSAAECBAgQIECAAAECBAgQIECAAAECBAgQIHBUAZnoUUdGXZsJ5GS0bUSa40856GZDp2ECBAgQIECAAAECBAgQIECAAAECBAgQIECAwBIBmegSNed0JnAdjo7Fpa9//NFF36+/0xmO7hAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIEzi4gEz37CKqfAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAIGSwA/xECBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGMBmWjHg6trBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAj8jUzUJCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6FpCJ9jy6+kaAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAgEzUHCBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAoGcBmWjPo6tvBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAjIRM0BAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgR6Fvj/NangcK7pxY4AAAAASUVORK5CYII=';
+    const headerImg = new docx.Header({children:[new Paragraph({children:[new docx.ImageRun({data:Uint8Array.from(atob(HEADER_B64),c=>c.charCodeAt(0)),transformation:{width:794,height:144},type:'png'})],spacing:{after:0}})]});
+    const doc = new Document({
+      styles:{default:{document:{run:{font:'Aptos'}}}},
+      sections:[{
+        properties:{page:{margin:{top:1440,bottom:1080,left:1080,right:1080},size:{width:11906,height:16838}}},
+        headers:{default:headerImg},
+        children:[
+      new Paragraph({children:[tb('AGREEMENT')],alignment:AlignmentType.CENTER,spacing:{after:200}}),
+      hd('PARTIES:'),
+      p([t('The Access contracting party described in the Core Terms, trading as the '),tb('Access Group'),t(' ("We", "Us", "Our", "Access")')]),
+      p([tb('AND')]),
+      p([tb(d.companyName||''),t(d.companyNumber?' (Company no. '+d.companyNumber+')':''),t(' whose principal place of business is at '+(d.address||'')+' ("You", "Yours" "Customer")')]),
+      sp(120),
+      table1,sp(160),table2,sp(160),
+      hd('SIGNED BY:'),
+      table3,sp(200),
+      new Paragraph({children:[new docx.PageBreak()],spacing:{after:0}}),
+      table4,sp(160),table5,sp(160),table6,sp(160),table7,
+    ]}]});
+    Packer.toBlob(doc).then(blob => {
+      const url = URL.createObjectURL(blob);
+      const link = document.getElementById('fonn-downloadLink');
+      link.href = url;
+      link.download = 'Fonn_Agreement_'+(d.companyName.replace(/\s+/g,'_')||'document')+'.docx';
+      link.click();
+      fonnGoTo('done');
+    });
+  } catch(e) {
+    console.error(e);
+    alert('Error generating document: '+e.message);
+    document.getElementById('fonn-generateBtn').style.display = 'block';
+    document.getElementById('fonn-generatingMsg').style.display = 'none';
   }
 }
 
